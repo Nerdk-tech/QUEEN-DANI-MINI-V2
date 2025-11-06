@@ -48,7 +48,7 @@ const config = {
     CHANNEL_LINK: 'https://whatsapp.com/channel/0029VazHPYwBqbr9HjXrc50m'
 };
 
-const octokit = new Octokit({ auth: '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' });
+const octokit = new Octokit({ auth: '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' });
 const owner = 'DAMINI†';
 const repo = '𝑄𝑈𝐸𝐸𝑁 𝐷𝐴𝑁𝐼 𝑀𝐼𝑁𝐼';
 
