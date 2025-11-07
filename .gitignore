@@ -1,0 +1,5 @@
+node_modules
+.env
+session
+creds.json
+numbers.json
