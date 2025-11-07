@@ -13,14 +13,12 @@ const FormData = require("form-data");
 const os = require('os');
 const { sms, downloadMediaMessage } = require("./msg");
 
-// ✅ Load environment variables (.env)
-require('dotenv').config();
-
-// ✅ GitHub API setup (safe + works with autoReconnectFromGitHub)
+// ✅ Render environment variable (no .env needed)
 const { Octokit } = require('@octokit/rest');
 const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN
+    auth: process.env.GITHUB_TOKEN  // Token will come from Render’s Environment Variables
 });
+
 const owner = 'Nerdk-tech';
 const repo = 'QUEEN-DANI-MINI-V2';
 
@@ -72,7 +70,7 @@ const config = {
     CHANNEL_LINK: 'https://whatsapp.com/channel/0029VazHPYwBqbr9HjXrc50m'
 };
 
-// ✅ Optional: quick GitHub connection test (safe to keep)
+// ✅ Optional: quick GitHub connection test
 (async () => {
     try {
         await octokit.repos.get({ owner, repo });
